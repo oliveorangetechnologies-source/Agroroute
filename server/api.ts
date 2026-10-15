@@ -25,18 +25,49 @@ apiRouter.get('/health', (_req: Request, res: Response) => {
 // Authentication endpoints
 apiRouter.post('/auth/login', (req: Request, res: Response) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    res.status(400).json({ error: 'Email and password are required' });
+  if (!email || !password || !email.toString().trim() || !password.toString().trim()) {
+    res.status(400).json({ error: 'Please enter both email and password' });
     return;
   }
-  const user = db.getCurrentUser();
+
+  const cleanEmail = email.toString().trim().toLowerCase();
+  const existingUser = db.getUserByEmail(cleanEmail);
+
+  let targetUser: any = existingUser;
+  if (!targetUser) {
+    if (cleanEmail.includes('rajesh')) {
+      targetUser = {
+        id: 'USR-001',
+        name: 'Rajesh Patel',
+        email: cleanEmail,
+        role: 'Director of Perishable Distribution & Logistics',
+        companyId: db.getCompany().id,
+      };
+    } else if (cleanEmail.includes('bhavin') || cleanEmail.includes('amit') || cleanEmail.includes('shah')) {
+      targetUser = {
+        id: 'USR-002',
+        name: 'Bhavin Shah',
+        email: cleanEmail,
+        role: 'Senior Supply-Chain & Logistics Planner',
+        companyId: db.getCompany().id,
+      };
+    } else {
+      const namePart = cleanEmail.split('@')[0].replace(/[._]/g, ' ');
+      const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+      targetUser = {
+        id: `USR-${Math.floor(100 + Math.random() * 900)}`,
+        name: formattedName || 'Gujarat Logistics Officer',
+        email: cleanEmail,
+        role: 'Logistics Operations Dispatcher',
+        companyId: db.getCompany().id,
+      };
+    }
+  }
+
   res.json({
     success: true,
-    user: {
-      ...user,
-      email: email.trim().toLowerCase(),
-    },
-    token: 'jwt-agroroute-dev-session-token',
+    user: targetUser,
+    token: `jwt-agroroute-${Date.now()}-${targetUser.id}`,
   });
 });
 

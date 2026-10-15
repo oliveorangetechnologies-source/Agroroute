@@ -615,6 +615,17 @@ export class Database {
     return this.data.users[0];
   }
 
+  public getUsers(): UserProfile[] {
+    return this.data.users || [];
+  }
+
+  public getUserByEmail(email: string): UserProfile | undefined {
+    const clean = email.toLowerCase().trim();
+    return (this.data.users || []).find(
+      (u) => u.email.toLowerCase() === clean
+    );
+  }
+
   // Batches CRUD
   public getBatches(): InventoryBatch[] {
     // Recompute status based on shelf life and quantities
