@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* AgroRoute Design System Palette */
+    --color-forest: #243D2B;
+    --color-primary: #355C40;
+    --color-sage: #D8E5C3;
+    --color-ivory: #F4F0E6;
+    --color-white: #FFFFFF;
+    --color-harvest: #E78B45;
+    --color-text-main: #202820;
+    --color-text-secondary: #687267;
+    --color-border: #E2E6DC;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text-main);
+    background-color: #F8FAF7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+  }
+
+  /* Force tabular numbers in table cells, metrics, and KPI readouts */
+  .tabular-nums,
+  td,
+  th,
+  .metric-value {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom scrollbars for data tables and sidebars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8E5C3;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #AEC295;
+}

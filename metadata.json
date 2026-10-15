@@ -1,0 +1,6 @@
+{
+  "name": "AGROROUTE",
+  "description": "Smarter Distribution. Fresher Produce. Perishable-produce distribution decision-support SaaS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
